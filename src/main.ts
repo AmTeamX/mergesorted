@@ -10,19 +10,28 @@ export function merge(collection1: number[], collection2: number[], collection3:
     let counterC2 = 0;
     let counterC3 = 0;
 
+    let prevnum = 0;
+
     while (counterC1 < collection1.length || counterC2 < collection2.length || counterC3 < collection3Reversed.length) {
         let c1val = counterC1 < collection1.length ? collection1[counterC1] : Infinity;
         let c2val = counterC2 < collection2.length ? collection2[counterC2] : Infinity;
         let c3val = counterC3 < collection3Reversed.length ? collection3Reversed[counterC3] : Infinity;
 
+        if((prevnum > c1val) || (prevnum > c2val) || (prevnum > c3val)){
+            throw new Error("Input Format Error!!! : please check your input again");
+        }
+
         if (c1val <= c2val && c1val <= c3val) {
             result.push(c1val);
+            prevnum = c1val;
             counterC1++;
         } else if (c2val <= c1val && c2val <= c3val) {
             result.push(c2val);
+            prevnum = c2val;
             counterC2++;
         } else {
             result.push(c3val);
+            prevnum = c3val;
             counterC3++;
         }
     }
